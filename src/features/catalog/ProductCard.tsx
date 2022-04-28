@@ -1,12 +1,17 @@
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardHeader,
   CardMedia,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { Product } from "../../app/models/product";
+import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 interface Props {
   product: Product;
@@ -14,23 +19,33 @@ interface Props {
 export default function ProductCard({ product }: Props) {
   return (
     <Card>
+      <CardHeader
+        //avatar={<Avatar>{product.name.charAt(0).toUpperCase()}</Avatar>}
+        title={product.name}
+      />
       <CardMedia
         component="img"
         height="140"
+        sx={{ backgroundSize: "contain", bgcolor: "lightblue" }}
         image={product.imgUrl}
-        alt="green iguana"
+        alt={product.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {product.name}
+        <Typography gutterBottom color="secondary" variant="h5">
+          ${(product.price / 100).toFixed(2)}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.description}
+        <Typography variant="body2" color="text.secondary" noWrap>
+          {product.brand} / {product.type}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <IconButton color="primary" aria-label="view more">
+          <RemoveRedEyeOutlinedIcon />
+        </IconButton>
+
+        <IconButton color="primary" aria-label="add to shopping cart">
+          <AddShoppingCartSharpIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );
