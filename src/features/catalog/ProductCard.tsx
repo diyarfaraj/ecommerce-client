@@ -1,6 +1,4 @@
 import {
-  Avatar,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -12,6 +10,7 @@ import {
 import { Product } from "../../app/models/product";
 import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import { Link } from "react-router-dom";
 
 interface Props {
   product: Product;
@@ -39,7 +38,12 @@ export default function ProductCard({ product }: Props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton color="primary" aria-label="view more">
+        <IconButton
+          component={Link}
+          to={`/catalog/${product.id}`}
+          color="primary"
+          aria-label="view more"
+        >
           <RemoveRedEyeOutlinedIcon />
         </IconButton>
 
