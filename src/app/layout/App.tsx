@@ -1,7 +1,8 @@
-import { Typography } from "@mui/material";
+import { Container, CssBaseline, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Catalog from "../../features/catalog/Catalog";
 import { Product } from "../models/product";
+import Header from "./Header";
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -30,8 +31,11 @@ function App() {
 
   return (
     <>
-      <Typography variant="h2">Kochi Stockholm</Typography>
-      <Catalog products={products} addProduct={addProduct} />
+      <CssBaseline />
+      <Header />
+      <Container>
+        <Catalog products={products} addProduct={addProduct} />
+      </Container>
     </>
   );
 }
