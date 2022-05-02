@@ -12,6 +12,8 @@ import HomePage from "../../features/home/HomePage";
 import ProductDetails from "../../features/catalog/ProductDetails";
 import AboutPage from "../../features/about/AboutPage";
 import ContactPage from "../../features/contact/ContactPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -30,6 +32,7 @@ function App() {
   }
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer theme="colored" position="bottom-right" />
       <CssBaseline />
       <Header makeItDark={makeItDark} />
       <Container>
