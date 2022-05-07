@@ -3,35 +3,24 @@ import { useEffect, useState } from "react";
 import { Product } from "../../app/models/product";
 import ProductList from "./ProductList";
 import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoding] = useState(true);
 
   useEffect(() => {
-    agent.Catalog.list().then((products) => setProducts(products));
+    agent.Catalog.list()
+      .then((products) => setProducts(products))
+      .catch((error) => console.log(error))
+      .finally(() => setLoding(false));
   }, []);
 
-  function addProduct() {
-    setProducts((prevState) => [
-      ...prevState,
-      {
-        id: prevState.length + 1,
-        name: "product" + (prevState.length + 1),
-        price: 12.0,
-        description: "descrption",
-        imgUrl: "sdfsdf",
-        quantityInStock: 23,
-        type: "sfds",
-        brand: "brnad",
-      },
-    ]);
-  }
+  if (loading) return <LoadingComponent />;
+
   return (
     <>
       <ProductList products={products} />
-      <Button variant="contained" onClick={addProduct}>
-        click me
-      </Button>
     </>
   );
 }
