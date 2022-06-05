@@ -11,11 +11,22 @@ import { Product } from "../../app/models/product";
 import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { Link } from "react-router-dom";
+import { useState } from 'react';
+import agent from '../../app/api/agent';
 
 interface Props {
   product: Product;
 }
 export default function ProductCard({ product }: Props) {
+
+  const [loading, setLoading] = useState(false);
+
+  function handleAddItem(productId: number){
+    setLoading(true);
+    agent.Basket.
+
+  }
+
   return (
     <Card>
       <CardHeader
