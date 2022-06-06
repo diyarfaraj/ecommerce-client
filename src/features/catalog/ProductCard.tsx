@@ -11,20 +11,21 @@ import { Product } from "../../app/models/product";
 import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
-import agent from '../../app/api/agent';
+import { useState } from "react";
+import agent from "../../app/api/agent";
+import { LoadingButton } from "@mui/lab";
 
 interface Props {
   product: Product;
 }
 export default function ProductCard({ product }: Props) {
-
   const [loading, setLoading] = useState(false);
 
-  function handleAddItem(productId: number){
+  function handleAddItem(productId: number) {
     setLoading(true);
-    agent.Basket.
-
+    agent.Basket.addItem(productId)
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -58,9 +59,14 @@ export default function ProductCard({ product }: Props) {
           <RemoveRedEyeOutlinedIcon />
         </IconButton>
 
-        <IconButton color="primary" aria-label="add to shopping cart">
+        <LoadingButton
+          loading={loading}
+          onClick={() => handleAddItem(product.id)}
+          color="primary"
+          aria-label="add to shopping cart"
+        >
           <AddShoppingCartSharpIcon />
-        </IconButton>
+        </LoadingButton>
       </CardActions>
     </Card>
   );
