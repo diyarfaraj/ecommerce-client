@@ -37,6 +37,12 @@ export default function ProductDetails() {
       .finally(() => setLoading(false));
   }, [id, item]);
 
+  function handleInputChange(event: any) {
+    if (event.target.value > 0) {
+      setQuantity(event.target.value);
+    }
+  }
+
   if (loading) return <LoadingComponent message={"loading product.."} />;
   if (!product) return <NotFound />;
   return (
@@ -84,6 +90,7 @@ export default function ProductDetails() {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
+                onChange={handleInputChange}
                 variant="outlined"
                 type="number"
                 label="Quantity in Cart"
