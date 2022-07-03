@@ -19,13 +19,13 @@ import { useStoreContext } from "../../app/context/StoreContext";
 import { LoadingButton } from "@mui/lab";
 
 export default function ProductDetails() {
-  const { basket } = useStoreContext();
+  const { basket, setBasket, removeItem } = useStoreContext();
 
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
-  const [submiting, setSubmiting] = useState(false);
+  const [submiting, setSubmitting] = useState(false);
 
   const item = basket?.items.find((p) => p.productId === product?.id);
 
@@ -38,8 +38,25 @@ export default function ProductDetails() {
   }, [id, item]);
 
   function handleInputChange(event: any) {
-    if (event.target.value > 0) {
+    if (event.target.value >= 0) {
       setQuantity(event.target.value);
+    }
+  }
+
+  function handleUpdateCart() {
+    setSubmitting(true);
+    if (!item || quantity > item.quantity) {
+      const updatedQuantity = item ? quantity - item.quantity : quantity;
+      agent.Basket.addItem(product?.id!, updatedQuantity)
+        .then((basket) => setBasket(basket))
+        .catch((err) => console.log(err))
+        .finally(() => setSubmitting(false));
+    } else {
+      const updatedQuantity = item.quantity - quantity;
+      agent.Basket.removeItem(product?.id!, updatedQuantity)
+        .then(() => removeItem(product?.id!, updatedQuantity))
+        .catch((err) => console.log(err))
+        .finally(() => setSubmitting(false));
     }
   }
 
@@ -100,6 +117,11 @@ export default function ProductDetails() {
             </Grid>
             <Grid item xs={6}>
               <LoadingButton
+                disabled={
+                  item?.quantity === quantity || (!item && quantity === 0)
+                }
+                loading={submiting}
+                onClick={handleUpdateCart}
                 sx={{ height: "55px" }}
                 color="primary"
                 size="large"
