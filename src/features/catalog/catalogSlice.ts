@@ -4,7 +4,8 @@ import agent from '../../app/api/agent';
 import { RootState } from '../../app/store/configureStore';
 
 const productAdapter = createEntityAdapter<Product>();
-export const fetchProductAsync = createAsyncThunk<Product[]>(
+
+export const fetchProductsAsync = createAsyncThunk<Product[]>(
     'catalog/fetchProductsAsync', 
     async () =>{
         try {
@@ -14,6 +15,8 @@ export const fetchProductAsync = createAsyncThunk<Product[]>(
         }
     }
     )
+
+
 
 export const catalogSlice = createSlice({
     name: 'catalog',
@@ -26,15 +29,15 @@ export const catalogSlice = createSlice({
 
     },
     extraReducers:(builder => {
-        builder.addCase(fetchProductAsync.pending, (state) =>{
+        builder.addCase(fetchProductsAsync.pending, (state) =>{
             state.status = 'pendingFetchProducts'
         });
-        builder.addCase(fetchProductAsync.fulfilled, (state, action)=> {
+        builder.addCase(fetchProductsAsync.fulfilled, (state, action)=> {
             productAdapter.setAll(state,action.payload);
             state.status = 'idle';
             state.productsLoaded = true;
         });
-        builder.addCase(fetchProductAsync.rejected,(state)=>{
+        builder.addCase(fetchProductsAsync.rejected,(state)=>{
             state.status = 'idle';
         })
     })
