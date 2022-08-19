@@ -6,7 +6,7 @@ interface Props {
   onChange: (items: string[]) => void;
 }
 
-export default function CheckBoxbButtons() {
+export default function CheckBoxbButtons({ items, checked, onChange }: Props) {
   return (
     <FormGroup>
       {brands.map((brand) => (

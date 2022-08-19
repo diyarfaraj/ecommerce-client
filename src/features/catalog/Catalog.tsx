@@ -71,17 +71,7 @@ export default function Catalog() {
           />
         </Paper>
 
-        <Paper sx={{ mb: 2, p: 2 }}>
-          <FormGroup>
-            {brands.map((brand) => (
-              <FormControlLabel
-                control={<Checkbox />}
-                label={brand}
-                key={brand}
-              />
-            ))}
-          </FormGroup>
-        </Paper>
+        <Paper sx={{ mb: 2, p: 2 }}></Paper>
         <Paper sx={{ mb: 2, p: 2 }}>
           <FormGroup>
             {types.map((type) => (
