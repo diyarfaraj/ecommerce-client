@@ -26,6 +26,7 @@ import {
 import { Label } from "@mui/icons-material";
 import ProductSearch from "./ProductSearch";
 import RadioButtonGroup from "../../app/components/RadioButtonGroup";
+import CheckBoxbButtons from "../../app/components/CheckBoxButtons";
 
 const sortOptions = [
   { value: "name", label: "Alphabetical" },
@@ -71,17 +72,23 @@ export default function Catalog() {
           />
         </Paper>
 
-        <Paper sx={{ mb: 2, p: 2 }}></Paper>
         <Paper sx={{ mb: 2, p: 2 }}>
-          <FormGroup>
-            {types.map((type) => (
-              <FormControlLabel
-                control={<Checkbox />}
-                label={type}
-                key={type}
-              />
-            ))}
-          </FormGroup>
+          <CheckBoxbButtons
+            items={brands}
+            checked={productParams.brands}
+            onChange={(items: string[]) =>
+              dispatch(setProductParams({ brands: items }))
+            }
+          />
+        </Paper>
+        <Paper sx={{ mb: 2, p: 2 }}>
+          <CheckBoxbButtons
+            items={types}
+            checked={productParams.types}
+            onChange={(items: string[]) =>
+              dispatch(setProductParams({ types: items }))
+            }
+          />
         </Paper>
       </Grid>
       <Grid item xs={9}>
