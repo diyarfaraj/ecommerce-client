@@ -27,6 +27,7 @@ import { Label } from "@mui/icons-material";
 import ProductSearch from "./ProductSearch";
 import RadioButtonGroup from "../../app/components/RadioButtonGroup";
 import CheckBoxbButtons from "../../app/components/CheckBoxButtons";
+import AppPagination from "../../app/components/AppPagination";
 
 const sortOptions = [
   { value: "name", label: "Alphabetical" },
@@ -43,6 +44,7 @@ export default function Catalog() {
     brands,
     types,
     productParams,
+    metaData,
   } = useAppSelector((state) => state.catalog);
   const dispatch = useAppDispatch();
 
@@ -54,7 +56,7 @@ export default function Catalog() {
     if (!filtersLoaded) dispatch(fetchFilters());
   }, [dispatch, filtersLoaded]);
 
-  if (status.includes("pending")) return <LoadingComponent />;
+  if (status.includes("pending") || !metaData) return <LoadingComponent />;
 
   return (
     <Grid container spacing={4}>
@@ -97,10 +99,12 @@ export default function Catalog() {
 
       <Grid item xs={3} />
       <Grid item xs={9}>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography>dispalying 1-6 of 20 item</Typography>
-          <Pagination color="secondary" size="large" count={10} page={2} />
-        </Box>
+        <AppPagination
+          metaData={metaData}
+          onPageChange={(page: number) =>
+            dispatch(setProductParams({ pageNumber: page }))
+          }
+        />
       </Grid>
     </Grid>
   );
