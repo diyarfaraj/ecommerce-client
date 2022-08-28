@@ -7,14 +7,15 @@ interface Props {
 }
 
 export default function AppPagination({ metaData, onPageChange }: Props) {
-  const { currentPage, pageSize, totalCount, totalPages } = metaData;
+  const { currentPage, productsPerPage, totalCount, totalPages } = metaData;
+  console.log(currentPage, productsPerPage, totalCount, totalPages);
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Typography>
-        dispalying {(currentPage - 1) * pageSize + 1}-
-        {currentPage * pageSize > totalCount
+        dispalying {(currentPage - 1) * (productsPerPage + 1)}-
+        {currentPage * productsPerPage > totalCount
           ? totalCount
-          : currentPage * pageSize}{" "}
+          : currentPage * productsPerPage}{" "}
         of {totalCount} item
       </Typography>
       <Pagination
