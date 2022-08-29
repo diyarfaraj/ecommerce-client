@@ -12,7 +12,7 @@ export default function AppPagination({ metaData, onPageChange }: Props) {
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Typography>
-        dispalying {(currentPage - 1) * (productsPerPage + 1)}-
+        dispalying {(currentPage - 1) * productsPerPage + 1}-
         {currentPage * productsPerPage > totalCount
           ? totalCount
           : currentPage * productsPerPage}{" "}
