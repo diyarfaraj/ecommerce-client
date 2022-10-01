@@ -23,8 +23,8 @@ import LoadingComponent from "./LoadingComponent";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
 import { useAppDispatch } from "../store/configureStore";
 import { setBasket } from "../../features/basket/basketSlice";
-import Login from "../../features/account/Login";
 import Register from "../../features/account/Register";
+import Login from "../../features/account/Login";
 
 function App() {
   //const { setBasket } = useStoreContext();
