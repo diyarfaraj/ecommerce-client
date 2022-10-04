@@ -23,11 +23,15 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+    formState: { isSubmitting, errors, isValid },
+  } = useForm({ mode: "all" });
 
   async function submitForm(data: FieldValues) {
-    await agent.Account.login(data);
+    try {
+      await agent.Account.login(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <ThemeProvider theme={theme}>
@@ -58,7 +62,9 @@ export default function Login() {
             fullWidth
             label="Username"
             autoFocus
-            {...register("username")}
+            {...register("username", { required: "Username is required" })}
+            error={!!errors.username}
+            helperText={errors?.username?.message?.toString()}
           />
           <TextField
             margin="normal"
@@ -66,7 +72,9 @@ export default function Login() {
             label="Password"
             type="password"
             autoComplete="current-password"
-            {...register("password")}
+            {...register("password", { required: "Password is required" })}
+            error={!!errors.password}
+            helperText={errors?.password?.message?.toString()}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -78,6 +86,7 @@ export default function Login() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={!isValid}
           >
             Sign In
           </LoadingButton>
