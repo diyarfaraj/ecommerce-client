@@ -25,6 +25,7 @@ import { useAppDispatch } from "../store/configureStore";
 import { setBasket } from "../../features/basket/basketSlice";
 import Register from "../../features/account/Register";
 import Login from "../../features/account/Login";
+import { fetchCurrentUser } from "../../features/account/accountSlice";
 
 function App() {
   //const { setBasket } = useStoreContext();
@@ -33,6 +34,7 @@ function App() {
 
   useEffect(() => {
     const buyerId = getCookie("buyerId");
+    dispatch(fetchCurrentUser());
     if (buyerId) {
       agent.Basket.get()
         .then((basket) => dispatch(setBasket(basket)))
@@ -41,7 +43,7 @@ function App() {
     } else {
       setLoading(false);
     }
-  }, [setBasket]);
+  }, [dispatch]);
 
   const [darkMode, setDarkMode] = useState(false);
   const paletteype = darkMode ? "dark" : "light";

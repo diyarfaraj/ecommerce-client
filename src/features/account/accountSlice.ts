@@ -26,15 +26,21 @@ export const signInUser = createAsyncThunk<User, FieldValues>(
 );
 
 export const fetchCurrentUser = createAsyncThunk<User>(
-  "account/singInUser",
+  "account/fetchCurrentUser",
   async (_, thunkAPI) => {
     try {
       const user = agent.Account.currentUser();
       localStorage.setItem("user", JSON.stringify(user));
+      console.log(user);
       return user;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
     }
+  },
+  {
+    condition: () => {
+      if (!localStorage.getItem("user")) return false;
+    },
   }
 );
 
