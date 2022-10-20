@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     initApp().then(() => setLoading(false));
-  }, []);
+  }, [initApp]);
 
   const [darkMode, setDarkMode] = useState(false);
   const paletteype = darkMode ? "dark" : "light";
