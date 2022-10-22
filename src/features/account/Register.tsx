@@ -8,16 +8,25 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Paper } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+} from "@mui/material";
 import { Link, useHistory } from "react-router-dom";
 import agent from "../../app/api/agent";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
+import { useState } from "react";
 
 const theme = createTheme();
 
 export default function Register() {
   // const history = useHistory();
+  const [validationErrors, setValidationErrors] = useState([]);
   const {
     register,
     handleSubmit,
@@ -44,7 +53,11 @@ export default function Register() {
         </Typography>
         <Box
           component="form"
-          onSubmit={handleSubmit((data) => agent.Account.register(data))}
+          onSubmit={handleSubmit((data) =>
+            agent.Account.register(data).catch((error) =>
+              setValidationErrors(error)
+            )
+          )}
           noValidate
           sx={{ mt: 1 }}
         >
@@ -80,6 +93,18 @@ export default function Register() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          {validationErrors.length > 0 && (
+            <Alert severity="error">
+              <AlertTitle>Validation Erros</AlertTitle>
+              <List>
+                {validationErrors.map((error) => (
+                  <ListItem key={error}>
+                    <ListItemText>{error}</ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </Alert>
+          )}
           <LoadingButton
             loading={isSubmitting}
             type="submit"
