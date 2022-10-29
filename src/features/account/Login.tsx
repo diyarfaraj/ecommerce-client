@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Paper } from "@mui/material";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import { FieldValues, useForm } from "react-hook-form";
@@ -23,6 +23,7 @@ const theme = createTheme();
 
 export default function Login() {
   const history = useHistory();
+  const location = useLocation<any>();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -33,7 +34,7 @@ export default function Login() {
   async function submitForm(data: FieldValues) {
     try {
       await dispatch(signInUser(data));
-      history.push("/catalog");
+      history.push(location.state?.from?.pathname || "/catalog");
     } catch (error) {
       console.log(error);
     }
