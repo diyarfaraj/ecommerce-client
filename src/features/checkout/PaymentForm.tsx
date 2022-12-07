@@ -3,8 +3,10 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { useFormContext } from "react-hook-form";
 
 export default function PaymentForm() {
+  const { control } = useFormContext();
   return (
     <>
       <Typography variant="h6" gutterBottom>
