@@ -31,12 +31,14 @@ function getStepContent(step: number) {
 }
 
 export default function CheckoutPage() {
-  const methods = useForm({
-    mode: "all",
-    resolver: yupResolver(validationSchema),
-  });
   const [activeStep, setActiveStep] = useState(0);
 
+  const currentValidationSchema = validationSchema[activeStep];
+
+  const methods = useForm({
+    mode: "all",
+    resolver: yupResolver(currentValidationSchema),
+  });
   const handleNext = (data: FieldValues) => {
     if (activeStep === 0) {
       console.log(data);
