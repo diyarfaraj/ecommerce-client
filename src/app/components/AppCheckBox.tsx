@@ -4,6 +4,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { CheckBox } from "@mui/icons-material";
 interface Props extends UseControllerProps {
   label: string;
+  disabled: boolean;
 }
 
 export default function AppCheckBox(props: Props) {
@@ -12,6 +13,7 @@ export default function AppCheckBox(props: Props) {
     <FormControlLabel
       control={<Checkbox {...field} checked={field.value} color="secondary" />}
       label={props.label}
+      disabled={props.disabled}
     />
   );
 }
