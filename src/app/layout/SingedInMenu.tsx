@@ -3,6 +3,7 @@ import React from "react";
 import { signOut } from "../../features/account/accountSlice";
 import { clearBasket } from "../../features/basket/basketSlice";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { Link } from "react-router-dom";
 
 export default function SingedInMenu() {
   const dispatch = useAppDispatch();
@@ -29,7 +30,9 @@ export default function SingedInMenu() {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My Orders</MenuItem>
+        <MenuItem component={Link} to="/orders">
+          My Orders
+        </MenuItem>
         <MenuItem
           onClick={() => {
             dispatch(signOut());
