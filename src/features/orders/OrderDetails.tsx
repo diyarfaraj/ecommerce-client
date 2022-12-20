@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+import { currencyFormat } from "../../app/util/util";
 
 interface OrderDetailsProps {
   location: {
@@ -38,7 +39,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ location: { state } }) => {
 
   return (
     <Paper>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} style={{ padding: 15 }}>
         <Grid item xs={12}>
           <Typography variant="h4" component="h1">
             Order #{order.id}
@@ -70,7 +71,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ location: { state } }) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" component="h2">
-            Order Date: {order.orderDate}
+            Order Date: {order.orderDate.split("T")[0]}
           </Typography>
           <Typography variant="h6" component="h2">
             Order Items:
@@ -78,6 +79,11 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ location: { state } }) => {
           <List>
             {order.orderItems?.map((item) => (
               <ListItem key={item.productId}>
+                <img
+                  src={item.pictureUrl}
+                  alt={item.name}
+                  style={{ height: 50, width: 50 }}
+                />
                 <ListItemText
                   primary={item.name}
                   secondary={`Quantity: ${item.quantity} | Price: ${item.price}`}
@@ -88,10 +94,10 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ location: { state } }) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" component="h2">
-            Subtotal: {order.subTotal}
+            Subtotal: {currencyFormat(order.subTotal)}
           </Typography>
           <Typography variant="h6" component="h2">
-            Delivery Fee: {order.deliveryFee}
+            Delivery Fee: {currencyFormat(order.deliveryFee)}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -99,7 +105,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ location: { state } }) => {
             Order Status: {order.orderStatus}
           </Typography>
           <Typography variant="h6" component="h2">
-            Total: {order.total}
+            Total: {currencyFormat(order.total)}
           </Typography>
         </Grid>
       </Grid>
