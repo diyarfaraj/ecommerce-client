@@ -5,7 +5,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useFormContext } from "react-hook-form";
 import AppTextInput from "../../app/components/AppTextInput";
-import { CardNumberElement } from "@stripe/react-stripe-js";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+} from "@stripe/react-stripe-js";
+import { StripeInput } from "./StripeInput";
 
 export default function PaymentForm() {
   const { control } = useFormContext();
@@ -29,10 +34,13 @@ export default function PaymentForm() {
             label="Card number"
             fullWidth
             autoComplete="cc-number"
-            variant="standard"
+            variant="outlined"
             InputLabelProps={{ shrink: true }}
             InputProps={{
-              inputComponent: CardNumberElement,
+              inputComponent: StripeInput,
+              inputProps: {
+                component: CardNumberElement,
+              },
             }}
           />
         </Grid>
@@ -43,7 +51,14 @@ export default function PaymentForm() {
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
-            variant="standard"
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+            InputProps={{
+              inputComponent: StripeInput,
+              inputProps: {
+                component: CardExpiryElement,
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -54,13 +69,14 @@ export default function PaymentForm() {
             helperText="Last three digits on signature strip"
             fullWidth
             autoComplete="cc-csc"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+            InputProps={{
+              inputComponent: StripeInput,
+              inputProps: {
+                component: CardCvcElement,
+              },
+            }}
           />
         </Grid>
       </Grid>
