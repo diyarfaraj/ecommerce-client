@@ -20,6 +20,7 @@ export const signInUser = createAsyncThunk<User, FieldValues>(
     try {
       const userDto = await agent.Account.login(data);
       const { basket, ...user } = userDto;
+      console.log("diyar", basket);
       if (basket) {
         thunkAPI.dispatch(setBasket(basket));
       }
