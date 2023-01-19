@@ -18,6 +18,7 @@ import agent from "../../app/api/agent";
 import { useAppDispatch } from "../../app/store/configureStore";
 import { clearBasket } from "../basket/basketSlice";
 import { LoadingButton } from "@mui/lab";
+import { StripeElementType } from "@stripe/stripe-js/types/stripe-js/elements-group";
 
 const steps = ["Shipping address", "Review your order", "Payment details"];
 
@@ -39,6 +40,28 @@ export default function CheckoutPage() {
   const [orderNumber, setOrderNumber] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const [cardState, setCardState] = useState<{
+    elementError: { [key in StripeElementType]?: string };
+  }>({ elementError: {} });
+  const [cardComplete, setCardCompelete] = useState<any>({
+    cardNumber: false,
+    cardExpiry: false,
+    cardCvc: false,
+  });
+
+  function onCardInputChange(event: any) {
+    setCardState({
+      ...cardState,
+      elementError: {
+        ...cardState.elementError,
+        [event.elementType]: event.error?.message,
+      },
+    });
+    setCardCompelete({
+      ...cardComplete,
+      [event.elementType]: event.complete,
+    });
+  }
 
   const currentValidationSchema = validationSchema[activeStep];
 
