@@ -15,7 +15,7 @@ import { FormProvider, useForm, FieldValues } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./checkoutValidation";
 import agent from "../../app/api/agent";
-import { useAppDispatch } from "../../app/store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { clearBasket } from "../basket/basketSlice";
 import { LoadingButton } from "@mui/lab";
 import { StripeElementType } from "@stripe/stripe-js/types/stripe-js/elements-group";
@@ -35,6 +35,9 @@ export default function CheckoutPage() {
     cardExpiry: false,
     cardCvc: false,
   });
+  const [paymentMessage, setPaymentMessage] = useState("");
+  const [paymentPyamentSucceded, setPaymentSucceded] = useState(false);
+  const { basket } = useAppSelector((state) => state.basket);
 
   function onCardInputChange(event: any) {
     setCardState({
@@ -82,6 +85,8 @@ export default function CheckoutPage() {
       }
     });
   }, [methods]);
+
+  async function submitOrder(data: FieldValues) {}
 
   const handleNext = async (data: FieldValues) => {
     const { nameOnCard, saveAddress, ...shippingAddress } = data;
