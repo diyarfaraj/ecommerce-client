@@ -89,6 +89,17 @@ export default function PaymentForm({ cardState, onCardInputChange }: Props) {
             }}
           />
         </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="caption"
+            display="block"
+            gutterBottom
+            color="GrayText"
+          >
+            When testing, use a card number: 4242 4242 4242 4242. Use a valid
+            future date, such as 12/34. For Cvc any three digit number will do.
+          </Typography>{" "}
+        </Grid>
       </Grid>
     </>
   );

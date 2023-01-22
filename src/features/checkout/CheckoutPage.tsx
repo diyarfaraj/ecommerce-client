@@ -20,6 +20,7 @@ import { clearBasket } from "../basket/basketSlice";
 import { LoadingButton } from "@mui/lab";
 import { StripeElementType } from "@stripe/stripe-js/types/stripe-js/elements-group";
 import {
+  CardExpiryElement,
   CardNumberElement,
   useElements,
   useStripe,
@@ -99,11 +100,14 @@ export default function CheckoutPage() {
     if (!stripe || !elements) return; // stripe is not ready
     try {
       const cardElement = elements.getElement(CardNumberElement);
+      console.log(cardElement);
       const paymentResult = await stripe.confirmCardPayment(
         basket?.clientSecret!,
         {
           payment_method: {
-            card: cardElement!,
+            card: {
+              ...cardElement!,
+            },
             billing_details: {
               name: nameOnCard,
             },
@@ -119,7 +123,7 @@ export default function CheckoutPage() {
         setOrderNumber(orderNumber);
         setPaymentSucceded(true);
         setPaymentMessage(
-          "Thank you, come again!. We have recieved your payments"
+          "Thank you, come again! We have recieved your payments"
         );
         setActiveStep(activeStep + 1);
         dispatch(clearBasket());
