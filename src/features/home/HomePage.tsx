@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 
 import "slick-carousel/slick/slick-theme.css";
+import { Box, Typography } from "@mui/material";
 
 const HomePage = () => {
   // Create an array of images to display in the slide show
@@ -24,15 +25,21 @@ const HomePage = () => {
   };
 
   return (
-    <div className="landing-page">
+    <>
       {/* Create the slide show using the react-slick component */}
       <Slider {...settings}>
         {images.map((image) => (
-          <img src={image} alt="Product image" />
+          <img
+            src={image}
+            alt="Product"
+            style={{ display: "block", width: "100%", maxHeight: 300 }}
+          />
         ))}
       </Slider>
-      <h1>Welcome to our e-commerce site!</h1>
-    </div>
+      <Box display="flex" justifyContent="center" sx={{ p: 4 }}>
+        <Typography variant="h1">Welcome to our e-commerce site!</Typography>
+      </Box>
+    </>
   );
 };
 
