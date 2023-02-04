@@ -1,3 +1,5 @@
 {
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "appService.defaultWebAppToDeploy": "/subscriptions/ee97fa78-d57b-4c30-a6f4-2429237b5a51/AppServices/subscriptions/ee97fa78-d57b-4c30-a6f4-2429237b5a51/resourceGroups/rg-test/providers/Microsoft.Web/sites/ecommerce-client-diyar",
+  "appService.deploySubpath": "build"
 }
