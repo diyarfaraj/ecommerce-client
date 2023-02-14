@@ -17,9 +17,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 2. Navigate to the cloned directory using `cd ecommerce-client`
 
-3. Install the required dependencies using the following command: npm install
+3. Install the required dependencies using the following command: `npm install`
 
-4. Start the development server using the following command: npm start
+4. Start the development server using the following command: `npm start`
 
 The app should now be running on `http://localhost:3000/`.
 
