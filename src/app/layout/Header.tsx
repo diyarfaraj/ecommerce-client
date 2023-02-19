@@ -72,6 +72,13 @@ export default function Header({ makeItDark }: Props) {
             </ListItem>
           ))}
         </List>
+        {user && (
+          <List>
+            <ListItem component={NavLink} to={"/inventory"} sx={navStyles}>
+              INVENTORY
+            </ListItem>
+          </List>
+        )}
         <Box display="flex" alignItems="center">
           <IconButton
             component={Link}
