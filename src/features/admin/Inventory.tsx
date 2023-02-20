@@ -82,7 +82,7 @@ export default function Inventory() {
           <AppPagination
             metaData={metaData}
             onPageChange={(page: number) =>
-              dispatch(setPageNumber({ page: page }))
+              dispatch(setPageNumber({ pageNumber: page }))
             }
           />
         </Box>
