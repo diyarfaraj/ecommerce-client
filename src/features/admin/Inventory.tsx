@@ -16,17 +16,27 @@ import useProducts from "../../app/hooks/useProducts";
 import AppPagination from "../../app/components/AppPagination";
 import { useAppDispatch } from "../../app/store/configureStore";
 import { setPageNumber } from "../catalog/catalogSlice";
+import { useState } from "react";
+import ProductForm from "./ProductForm";
 
 export default function Inventory() {
   const { products, metaData } = useProducts();
+  const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
+
+  if (editMode) return <ProductForm />;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
         <Typography sx={{ p: 2 }} variant="h4">
           Inventory
         </Typography>
-        <Button sx={{ m: 2 }} size="large" variant="contained">
+        <Button
+          onClick={() => setEditMode(true)}
+          sx={{ m: 2 }}
+          size="large"
+          variant="contained"
+        >
           Create
         </Button>
       </Box>
