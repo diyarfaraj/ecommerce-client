@@ -1,4 +1,5 @@
 import { Typography, Grid, Paper, Box, Button } from "@mui/material";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import AppTextInput from "../../app/components/AppTextInput";
 import { Product } from "../../app/models/product";
@@ -9,7 +10,12 @@ interface Props {
 }
 
 export default function ProductForm({ product, cancelEdit }: Props) {
-  const { control } = useForm();
+  const { control, reset } = useForm();
+
+  useEffect(() => {
+    if (product) reset(product);
+  }, [product, reset]);
+
   return (
     <Box component={Paper} sx={{ p: 4 }}>
       <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
@@ -47,7 +53,7 @@ export default function ProductForm({ product, cancelEdit }: Props) {
         </Grid>
       </Grid>
       <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
-        <Button variant="contained" color="inherit">
+        <Button onClick={cancelEdit} variant="contained" color="inherit">
           Cancel
         </Button>
         <Button variant="contained" color="success">
