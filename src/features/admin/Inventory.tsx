@@ -19,9 +19,10 @@ import { setPageNumber } from "../catalog/catalogSlice";
 import { useState } from "react";
 import ProductForm from "./ProductForm";
 import { Product } from "../../app/models/product";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function Inventory() {
-  const { products, metaData } = useProducts();
+  const { products, metaData, loading } = useProducts();
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
@@ -40,6 +41,7 @@ export default function Inventory() {
 
   if (editMode)
     return <ProductForm product={selectedProduct} cancelEdit={cancelEdit} />;
+
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -69,6 +71,7 @@ export default function Inventory() {
             </TableRow>
           </TableHead>
           <TableBody>
+            {loading && <LoadingComponent message="Initialising app..." />}
             {products.map((product) => (
               <TableRow
                 key={product.id}

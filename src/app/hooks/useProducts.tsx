@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchFilters,
   fetchProductsAsync,
@@ -11,13 +11,18 @@ export default function useProducts() {
   const { productsLoaded, filtersLoaded, brands, types, metaData } =
     useAppSelector((state) => state.catalog);
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     if (!productsLoaded) dispatch(fetchProductsAsync());
+    setLoading(false);
   }, [dispatch, productsLoaded]);
 
   useEffect(() => {
+    setLoading(true);
     if (!filtersLoaded) dispatch(fetchFilters());
+    setLoading(false);
   }, [dispatch, filtersLoaded]);
 
   return {
@@ -27,5 +32,6 @@ export default function useProducts() {
     brands,
     types,
     metaData,
+    loading,
   };
 }
