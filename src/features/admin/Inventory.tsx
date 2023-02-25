@@ -18,13 +18,28 @@ import { useAppDispatch } from "../../app/store/configureStore";
 import { setPageNumber } from "../catalog/catalogSlice";
 import { useState } from "react";
 import ProductForm from "./ProductForm";
+import { Product } from "../../app/models/product";
 
 export default function Inventory() {
   const { products, metaData } = useProducts();
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
+    undefined
+  );
 
-  if (editMode) return <ProductForm />;
+  function handleSelectProduct(product: Product) {
+    setSelectedProduct(product);
+    setEditMode(true);
+  }
+
+  function cancelEdit() {
+    if (selectedProduct) setSelectedProduct(undefined);
+    setEditMode(false);
+  }
+
+  if (editMode)
+    return <ProductForm product={selectedProduct} cancelEdit={cancelEdit} />;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -79,7 +94,10 @@ export default function Inventory() {
                 <TableCell align="center">{product.brand}</TableCell>
                 <TableCell align="center">{product.quantityInStock}</TableCell>
                 <TableCell align="right">
-                  <Button startIcon={<Edit />} />
+                  <Button
+                    onClick={() => handleSelectProduct(product)}
+                    startIcon={<Edit />}
+                  />
                   <Button startIcon={<Delete />} color="error" />
                 </TableCell>
               </TableRow>
