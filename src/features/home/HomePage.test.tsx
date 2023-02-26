@@ -5,6 +5,6 @@ import HomePage from "./HomePage";
 
 test("renders the slide show and welcome message", () => {
   const { getByText, getByAltText } = render(<HomePage />);
-  const welcomeMessage = getByText(/Welcome to our e-commerce site!/i);
+  const welcomeMessage = screen.getByText(/Welcome to our e-commerce site!/i);
   expect(welcomeMessage).toBeInTheDocument();
 });
