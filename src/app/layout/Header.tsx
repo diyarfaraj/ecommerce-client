@@ -72,7 +72,7 @@ export default function Header({ makeItDark }: Props) {
             </ListItem>
           ))}
         </List>
-        {user && (
+        {user && user?.roles?.includes("Admin") && (
           <List>
             <ListItem component={NavLink} to={"/inventory"} sx={navStyles}>
               INVENTORY
