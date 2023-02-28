@@ -25,10 +25,10 @@ export default function ProductCard({ product }: Props) {
 
   return (
     <Card>
-      <CardHeader
+      {/* <CardHeader
         //avatar={<Avatar>{product.name.charAt(0).toUpperCase()}</Avatar>}
         title={product.name}
-      />
+      /> */}
       <CardMedia
         component="img"
         height="140"
