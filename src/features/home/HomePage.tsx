@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Typography } from "@mui/material";
+import FeaturedSection from "../../app/layout/FeaturedSection";
 
 const HomePage = () => {
   // Create an array of images to display in the slide show
@@ -32,12 +33,20 @@ const HomePage = () => {
           <img
             src={image}
             alt="Product"
-            style={{ display: "block", width: "100%", maxHeight: 300 }}
+            style={{
+              display: "block",
+              width: "90%",
+              maxHeight: 100,
+              height: 100,
+            }}
           />
         ))}
       </Slider>
       <Box display="flex" justifyContent="center" sx={{ p: 4 }}>
-        <Typography variant="h1">Welcome to our e-commerce site!</Typography>
+        <Typography variant="h3">Welcome to our e-commerce site!</Typography>
+      </Box>
+      <Box>
+        <FeaturedSection />
       </Box>
     </>
   );
