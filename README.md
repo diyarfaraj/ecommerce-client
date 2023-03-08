@@ -2,6 +2,7 @@
 
 Ecommerce-client is a front-end React app built to provide a platform for online shopping. This app is built using React, TypeScript, and Redux, making it scalable and easy to maintain.
 The api and database for this project can be found [here](https://github.com/diyarfaraj/ecommerce-api)
+Live demo link coming soon.
 
 ## Getting Started
 
