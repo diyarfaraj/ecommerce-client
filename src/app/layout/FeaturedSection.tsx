@@ -47,13 +47,15 @@ const FeaturedSection: React.FC = () => {
       <Typography variant="h4">Our best sellers</Typography>
       <Slider {...settings}>
         {products.map((product) => (
-          <Link key={product.id} to={`/catalog/${product.id}`}>
-            <Box>
+          <Link
+            key={product.id}
+            to={`/catalog/${product.id}`}
+            style={{ textDecoration: "none" }}
+          >
+            <Box display="flex" flexDirection="column" alignItems="center">
               <img src={product.imgUrl} alt={product.name} />
-              <Typography variant="h6">{product.name}</Typography>
-              <Typography variant="body1" className="description">
-                {product.description}
-              </Typography>
+
+              <Typography variant="inherit">{product.name}</Typography>
             </Box>
           </Link>
         ))}
