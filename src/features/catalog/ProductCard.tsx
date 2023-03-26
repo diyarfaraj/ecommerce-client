@@ -28,42 +28,36 @@ export default function ProductCard({ product }: Props) {
         //avatar={<Avatar>{product.name.charAt(0).toUpperCase()}</Avatar>}
         title={product.name}
       /> */}
-      <CardMedia
-        component="img"
-        height="220"
-        sx={{ backgroundSize: "contain", bgcolor: "lightblue" }}
-        image={product.imgUrl}
-        alt={product.name}
-      />
+      <Link to={`/catalog/${product.id}`}>
+        <CardMedia
+          component="img"
+          height="220"
+          sx={{ backgroundSize: "contain", bgcolor: "lightblue" }}
+          image={product.imgUrl}
+          alt={product.name}
+        />
+      </Link>
       <CardContent>
-        <Typography gutterBottom color="secondary" variant="h5">
-          {currencyFormat(product.price)}
-        </Typography>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Typography gutterBottom color="secondary" variant="h5">
+            {currencyFormat(product.price)}
+          </Typography>
+          <LoadingButton
+            loading={status.includes("pendingAddItem" + product.id)}
+            onClick={() =>
+              dispatch(addBasketItemAsync({ productId: product.id }))
+            }
+            color="primary"
+            aria-label="add to shopping cart"
+            style={{ marginLeft: "8px" }} // Add some space between the elements
+          >
+            <AddShoppingCartSharpIcon />
+          </LoadingButton>
+        </div>
         <Typography variant="body2" color="text.secondary" noWrap>
           {product.name}
         </Typography>
       </CardContent>
-      <CardActions>
-        <IconButton
-          component={Link}
-          to={`/catalog/${product.id}`}
-          color="primary"
-          aria-label="view more"
-        >
-          <RemoveRedEyeOutlinedIcon />
-        </IconButton>
-
-        <LoadingButton
-          loading={status.includes("pendingAddItem" + product.id)}
-          onClick={() =>
-            dispatch(addBasketItemAsync({ productId: product.id }))
-          }
-          color="primary"
-          aria-label="add to shopping cart"
-        >
-          <AddShoppingCartSharpIcon />
-        </LoadingButton>
-      </CardActions>
     </Card>
   );
 }

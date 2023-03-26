@@ -1,14 +1,22 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
+import config from "../../config";
 import { PaginatedResponse } from "../models/pagination";
 import { store } from "../store/configureStore";
 
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 //axios.defaults.baseURL = "http://localhost:5000/api/";
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = config.API_URL;
 axios.defaults.withCredentials = true;
+
+console.log("node env: ", process.env.NODE_ENV);
+console.log("node react app url: ", config.API_URL);
+
+if (process.env.NODE_ENV !== "development") {
+  console.log("productionnnn");
+}
 
 const responseBody = (response: AxiosResponse) => response.data;
 
